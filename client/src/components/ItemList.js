@@ -40,10 +40,10 @@ class ItemList extends React.Component {
 					{
 						this.state.items ?
 							this.state.items.map(item => {
-								return(<Item key={item.id} item={item} deleteItem={this.deleteItem}/>)
+								return(<Item key={item.id} id={this.state.department_id} item={item} deleteItem={this.deleteItem}/>)
 							})
 							: this.props.items.map(item => {
-								return(<Item key={item.id} item={item} deleteItem={this.deleteItem}/>)
+								return(<Item key={item.id} id={this.state.department_id} item={item} deleteItem={this.deleteItem}/>)
 							})
 					}
 				</CardGroup>

@@ -2,31 +2,34 @@ import React from 'react';
 import { Form, Header, } from "semantic-ui-react";
 
 class ItemForm extends React.Component {
-  defaultValues = { name: "", price: "", description: "", department_id: null, };
+  defaultValues = { item: {name:"",description:"",price:0.00}, updating: false};
   state = this.props.item ? {item: this.props.item, updating: true} : {...this.defaultValues, };
 
 	componentDidUpdate(prevProps) {
 		if(this.props !== prevProps)
-			this.setState({...this.props});
+			this.setState({item: this.props.item, updating: this.props.item !== undefined });
 	}
 
   handleSubmit = (e) => {
-    e.preventDefault();
+		e.preventDefault();
+		debugger
 		const item = {...this.state.item, department_id: this.props.id};
-		if(this.props.updating) 
+		if(this.state.updating) 
 			this.props.updateItem(item)
-		else if(this.props.addItem)
+		else if(this.props.addItem !== undefined)
 			this.props.addItem(item);
     this.setState({ ...this.defaultValues, });
   }
 
   handleChange = (e) => {
-    const { target: { name, value, } } = e;
-    this.setState({ [name]: value, });
+		const { target: { name, value, } } = e;
+		const item={...this.state.item, [name]: value};
+    this.setState({ item: item });
   }
 
   render() {
-    const { name, price, description, updating, } = this.state.item;
+		const { name, price, description,} = this.state.item ? this.state.item : {name:"",description:"",price:0.00};
+		const updating = this.state.updating;
     return (
       <div>
 				{updating ? 

@@ -4,25 +4,24 @@ import axios from 'axios';
 import ItemForm from './ItemForm'
 
 class Item extends React.Component {
-	state={items: this.props.items, deleteItem: this.props.deleteItem, isForm : false}
+	state={item: this.props.item, deleteItem: this.props.deleteItem, isForm : false}
 
 	renderForm= () => {
 		return (
 			<CardHeader>
-				<ItemForm item={this.state.item} updateItem={this.updateItem}/>
+				<ItemForm item={this.state.item} id={this.props.id} updateItem={this.updateItem}/>
 			</CardHeader>
 		);
 	}
 
 	componentDidUpdate(prevProps) {
     if(this.props !== prevProps) {
-      this.setState({items: this.props.items, deleteItem: this.props.deleteItem,});
+      this.setState({item: this.props.item, deleteItem: this.props.deleteItem,});
     }
   }
 
 	updateItem = (item) => {
-		debugger
-		const {department_id, id } = this.state
+		const {department_id, id } = item
 		axios.put(`/api/departments/${department_id}/items/${id}`, item)
 			.then( res => {
 				this.setState({...res.data, isForm: false})
