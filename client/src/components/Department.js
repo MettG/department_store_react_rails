@@ -3,7 +3,7 @@ import ItemList from './ItemList';
 import { Divider, Header } from 'semantic-ui-react';
 import axios from 'axios';
 class Department extends React.Component {
-	state = { department: {}, items: [] };
+	state = { department: {}, items: []};
 
   componentDidMount() {
 		const id = this.props.match.params.id;

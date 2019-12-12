@@ -25,6 +25,7 @@ class Item extends React.Component {
 		axios.put(`/api/departments/${department_id}/items/${id}`, item)
 			.then( res => {
 				this.setState({...res.data, isForm: false})
+				this.props.update(res.data);
 			})
 	}
 

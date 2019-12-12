@@ -12,13 +12,12 @@ class ItemForm extends React.Component {
 
   handleSubmit = (e) => {
 		e.preventDefault();
-		debugger
 		const item = {...this.state.item, department_id: this.props.id};
 		if(this.state.updating) 
 			this.props.updateItem(item)
 		else if(this.props.addItem !== undefined)
 			this.props.addItem(item);
-    this.setState({ ...this.defaultValues, });
+		this.setState({ ...this.defaultValues, });
   }
 
   handleChange = (e) => {

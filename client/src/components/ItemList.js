@@ -22,6 +22,13 @@ class ItemList extends React.Component {
 			})
 	}
 
+	update = (item) => {
+		this.setState({items: this.state.items.map(i => {
+			if(i.id === item.id) return item;
+			return i;
+		})})
+	}
+
 	deleteItem = (id) => {
 		const {department_id, items} = this.state
 		axios.delete(`/api/departments/${department_id}/items/${id}`)
@@ -38,13 +45,9 @@ class ItemList extends React.Component {
 			<>
 				<CardGroup>
 					{
-						this.state.items ?
-							this.state.items.map(item => {
-								return(<Item key={item.id} id={this.state.department_id} item={item} deleteItem={this.deleteItem}/>)
-							})
-							: this.props.items.map(item => {
-								return(<Item key={item.id} id={this.state.department_id} item={item} deleteItem={this.deleteItem}/>)
-							})
+						this.state.items.map(item => {
+							return(<Item key={item.id} id={this.state.department_id} item={item} deleteItem={this.deleteItem} update={this.update}/>)
+						})
 					}
 				</CardGroup>
 				<Divider hidden></Divider>
